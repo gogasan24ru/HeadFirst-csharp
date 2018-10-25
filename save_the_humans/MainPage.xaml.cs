@@ -31,10 +31,10 @@ namespace save_the_humans
         {
             InitializeComponent();
             enemyTimer.Tick += enemyTimer_Tick;
-            enemyTimer.Interval=TimeSpan.FromSeconds(2);
+            enemyTimer.Interval=TimeSpan.FromSeconds(EnemySpawnIntervalSlider.Value);
 
             targeTimer.Tick += targeTimer_Tick;
-            targeTimer.Interval=TimeSpan.FromSeconds(0.1);
+            targeTimer.Interval=TimeSpan.FromSeconds(1);
         }
 
         private void targeTimer_Tick(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace save_the_humans
             enemyTimer.Stop();
             targeTimer.Stop();
             humanCaptured = false;
-            startButton.Visibility = Visibility.Visible;
+            SetupGroup.Visibility = Visibility.Visible;
             playArea.Children.Add(gameOverText);
         }
 
@@ -63,13 +63,13 @@ namespace save_the_humans
             Human.IsHitTestVisible = true;
             humanCaptured = false;
             progressBar.Value = 0;
-            startButton.Visibility = Visibility.Collapsed;
+            SetupGroup.Visibility = Visibility.Collapsed;
             playArea.Children.Clear();
             playArea.Children.Add(Human);
             playArea.Children.Add(Target);
             enemyTimer.Start();
             targeTimer.Start();
-//            gameOverText.Text = "GAME OVER!";
+            gameOverText.Text = "GAME OVER!";
         }
 
         private void AddEnemy()
@@ -120,8 +120,8 @@ namespace save_the_humans
                 progressBar.Value = 0;
                 humanCaptured = false;
                 Human.IsHitTestVisible = false;
-//                gameOverText.Text = "Humans survived!!";
-//                EndTheGame();
+                gameOverText.Text = "Humans survived!!";
+                EndTheGame();
             }
         }
 
@@ -152,6 +152,17 @@ namespace save_the_humans
         private void PlayArea_OnMouseLeave(object sender, MouseEventArgs e)
         {
             if(humanCaptured)EndTheGame();
+        }
+
+        private void EnemySpawnIntervalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            EnemySpawnIntervalText.Text = "Spawn interval: "+EnemySpawnIntervalSlider.Value.ToString("N2") + "s";
+        }
+
+        private void GameTimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GameTimeText.Text = "Game time: " + GameTimeSlider.Value.ToString("N2") + "s";
+            if (progressBar != null) progressBar.Maximum = GameTimeSlider.Value;
         }
     }
 }
