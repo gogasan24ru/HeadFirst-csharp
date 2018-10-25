@@ -65,7 +65,12 @@ namespace save_the_humans
             SetupGroup.Visibility = Visibility.Collapsed;
             playArea.Children.Clear();
             playArea.Children.Add(Human);
+            //reset coordinates
+            Canvas.SetLeft(Human, playArea.ActualWidth / 20);
+            Canvas.SetTop(Human, playArea.ActualHeight / 2);
             playArea.Children.Add(Target);
+            Canvas.SetLeft(Target, random.Next( (int)playArea.ActualWidth / 3*2, (int)playArea.ActualWidth-50));
+            Canvas.SetTop(Target, random.Next(50,(int)playArea.ActualHeight - 50));
             enemyTimer.Start();
             targeTimer.Start();
             gameOverText.Text = "GAME OVER!";
