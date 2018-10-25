@@ -31,7 +31,6 @@ namespace save_the_humans
         {
             InitializeComponent();
             enemyTimer.Tick += enemyTimer_Tick;
-            enemyTimer.Interval=TimeSpan.FromSeconds(EnemySpawnIntervalSlider.Value);
 
             targeTimer.Tick += targeTimer_Tick;
             targeTimer.Interval=TimeSpan.FromSeconds(1);
@@ -70,6 +69,8 @@ namespace save_the_humans
             enemyTimer.Start();
             targeTimer.Start();
             gameOverText.Text = "GAME OVER!";
+            enemyTimer.Interval = TimeSpan.FromSeconds(EnemySpawnIntervalSlider.Value);
+
         }
 
         private void AddEnemy()

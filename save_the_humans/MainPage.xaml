@@ -50,9 +50,9 @@
         <StackPanel Name="SetupGroup" VerticalAlignment="Center"  Orientation="Vertical" Grid.Row="2">
             <Button Content="Start!" x:Name="startButton" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="75" Click="startButton_Click" Margin="0,0,1,0" />
             <TextBlock Name="EnemySpawnIntervalText" TextWrapping="Wrap" Text="Spawn interval: 5s"/>
-            <Slider Name="EnemySpawnIntervalSlider" ValueChanged="EnemySpawnIntervalSlider_ValueChanged" Value="2" Maximum="5" Minimum="1"/>
+            <Slider Name="EnemySpawnIntervalSlider" ValueChanged="EnemySpawnIntervalSlider_ValueChanged" Value="2" Maximum="5" Minimum="0.1"/>
             <TextBlock Name="GameTimeText" TextWrapping="Wrap" Text="Game time: 20s"/>
-            <Slider Name="GameTimeSlider" Value="20" Maximum="300" ValueChanged="GameTimeSlider_ValueChanged"/>
+            <Slider Name="GameTimeSlider" Value="20" Maximum="300" Minimum="10" ValueChanged="GameTimeSlider_ValueChanged"/>
 
         </StackPanel>
         <StackPanel Grid.Column="2" Orientation="Vertical" Grid.Row="2">
