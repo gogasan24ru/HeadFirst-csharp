@@ -11,12 +11,32 @@
 
         <ControlTemplate x:Key="EnemyTemplate" TargetType="{x:Type ContentControl}">
             <Grid>
-                <Ellipse Fill="Red" Height="100" Stroke="Black" Width="100"/>
+                <Ellipse Fill="Gray" Height="100" Stroke="Black" Width="75"/>
+                <Ellipse Fill="Black" HorizontalAlignment="Left" Height="35" Margin="40,20,70,0" Stroke="Black" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="10"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse Fill="Black" HorizontalAlignment="Left" Height="35" Margin="70,20,40,0" Stroke="Black" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="-10"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
             </Grid>
         </ControlTemplate>
     </Page.Resources>
 
-    <Grid>
+    <Grid Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
             <ColumnDefinition/>
@@ -27,25 +47,25 @@
             <RowDefinition/>
             <RowDefinition Height="160"/>
         </Grid.RowDefinitions>
-        <Button Content="Start!" Name="startButton" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Row="2" Height="30" Width="75" />
+        <Button Content="Start!" Name="startButton" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Row="2" Height="30" Width="75" Click="startButton_Click" />
         <StackPanel Grid.Column="2" Orientation="Vertical" Grid.Row="2">
             <TextBlock TextWrapping="Wrap" Text="Avoid These" FontSize="18"/>
             <ContentControl Content="ContentControl" Template="{DynamicResource EnemyTemplate}"/>
         </StackPanel>
-        <ProgressBar Grid.Column="1" Grid.Row="2" Height="20"/>
-        <Canvas Name="playArea" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" >
+        <ProgressBar Name="progressBar" Grid.Column="1" Grid.Row="2" Height="20"/>
+        <Canvas Name="playArea" MouseLeave="PlayArea_OnMouseLeave" MouseMove="PlayArea_OnMouseMove" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" >
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF2CA2A8" Offset="0"/>
                     <GradientStop Color="#FF4E814E" Offset="1"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-            <StackPanel x:Name="Human" Orientation="Vertical">
+            <StackPanel x:Name="Human" Orientation="Vertical" MouseDown="Human_OnMouseDown" >
                 <Ellipse Fill="White" Stroke="Black" Width="10" Height="10"/>
                 <Rectangle Fill="White" Stroke="Black" Width="10" Height="25" />
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center"  Text="GAME OVER" VerticalAlignment="Center" FontSize="72" Canvas.Left="210" Canvas.Top="10" />
-            <Rectangle Height="50" Canvas.Left="735" Name="Target" Stroke="Black" Canvas.Top="80" Width="50" RenderTransformOrigin="0.5,0.5">
+            <TextBlock Name="gameOverText" HorizontalAlignment="Center"  Text="GAME OVER" VerticalAlignment="Center" FontSize="72" Canvas.Left="210" Canvas.Top="10" />
+            <Rectangle MouseEnter="Target_OnMouseEnter" Height="50" Canvas.Left="735" Name="Target" Stroke="Black" Canvas.Top="80" Width="50" RenderTransformOrigin="0.5,0.5">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
